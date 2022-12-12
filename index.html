@@ -6,8 +6,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="vue.js"></script>
     <title>Index</title>
+    <style>
+        * {
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+
+        .verde {
+            color: green;
+        }
+
+        .azul {
+            color: blue;
+        }
+
+        .box-mother {
+            display: block;
+            width: 500px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        
+        .box-mother * {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .box-mother button {
+            display: block;
+            width: 90%;
+
+            cursor: pointer;
+        }
+
+        #biggest-box {
+            width: 90%;
+            height: 65%;
+            border: 1px black solid;
+
+            transition: .9s;
+        }
+
+        .flex-box {
+            display: flex;
+            width: 90%;
+            height: 25%;
+
+            padding: 5px 0px;
+        }
+
+        .smaller-box {
+            width: 33.33%;
+            height: 90%;
+            border: 1px black solid;
+            
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>teste</h1>
+    <div id="app">
+        <p :class="isTrue ? 'verde' : 'azul'">
+            {{ message }}
+        </p>
+
+        <p :class="{
+            verde: !isTrue,
+            azul: isTrue,
+        }">
+            {{ message }}
+        </p>
+
+        <button @click="clickAlert($event)">Clique para abrir o alert</button>
+
+        <div class="box-mother">
+            <div id="biggest-box">
+                <p>Coordenadas eixo X: {{ mouseClientX }}</p>
+                <p>Coordenadas eixo Y: {{ mouseClientY }}</p>
+            </div>
+            <div class="flex-box">
+                <div 
+                @click="changeColor($event)" 
+                @mousemove="getCoordinates($event)"
+                class="smaller-box" 
+                style="background-color: green;"></div>
+                <div 
+                @click="changeColor($event)"
+                @mousemove="getCoordinates($event)"
+                class="smaller-box" 
+                style="background-color: red;"></div>
+                <div 
+                @click="changeColor($event)" 
+                @mousemove="getCoordinates($event)"
+                class="smaller-box" 
+                style="background-color: purple;"></div>
+            </div>
+            <button @click="changeColor(), getCoordinates()">Limpar</button>
+        </div>
+    </div>
+
+    <script>
+
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                message: 'Mensagem',
+                isTrue: true,
+                mouseClientX: null,
+                mouseClientY: null,
+            },
+
+            methods: {              
+                changeColor(e) {
+                    const biggestBox = document.getElementById("biggest-box");
+
+                    if (e) {
+                        const clickedElement = e.path[0];
+                        const bgColorClickedElement = clickedElement.style.backgroundColor;
+                        
+                        biggestBox.style.backgroundColor = bgColorClickedElement;
+                    }else {
+                        biggestBox.style.backgroundColor = "";
+                    }
+                },
+
+                getCoordinates(e) {
+                    if (e) {
+                        this.mouseClientX = e.clientX;
+                        this.mouseClientY = e.clientY;
+                    }else {
+                        this.mouseClientX = null;
+                        this.mouseClientY = null;
+                    }
+                }
+            },
+        });
+
+    </script>
 </body>
 </html>
