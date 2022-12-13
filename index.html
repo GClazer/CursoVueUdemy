@@ -108,6 +108,12 @@
                 class="smaller-box" 
                 style="background-color: blue;">
                 </div>
+                <div 
+                @click="changeColor($event)" 
+                @mousemove="getCoordinates($event)"
+                class="smaller-box" 
+                style="background-color: brown;">
+                </div>
             </div>
             <button @click="changeColor(), getCoordinates()">Limpar</button>
         </div>
