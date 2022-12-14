@@ -39,7 +39,7 @@
             cursor: pointer;
         }
 
-        #biggest-box {
+        #biggestBox {
             width: 90%;
             height: 65%;
             border: 1px black solid;
@@ -81,7 +81,7 @@
         <button @click="clickAlert($event)">Clique para abrir o alert</button>
 
         <div class="box-mother">
-            <div id="biggest-box">
+            <div id="biggestBox">
                 <p>Coordenadas eixo X: {{ mouseClientX }}</p>
                 <p>Coordenadas eixo Y: {{ mouseClientY }}</p>
             </div>
@@ -117,6 +117,9 @@
             </div>
             <button @click="changeColor(), getCoordinates()">Limpar</button>
         </div>
+
+        <div id="testeNewFunction"> =DDDD <div>tt</div> </div>
+        <button type="submit" @click="naoPodeSer()">dd</button>
     </div>
 
     <script>
@@ -132,8 +135,6 @@
 
             methods: {              
                 changeColor(e) {
-                    const biggestBox = document.getElementById("biggest-box");
-
                     if (e) {
                         const clickedElement = e.path[0];
                         const bgColorClickedElement = clickedElement.style.backgroundColor;
@@ -152,6 +153,10 @@
                         this.mouseClientX = null;
                         this.mouseClientY = null;
                     }
+                },
+
+                naoPodeSer() {
+                    console.log(testeNewFunction.innerHTML);
                 }
             },
         });
